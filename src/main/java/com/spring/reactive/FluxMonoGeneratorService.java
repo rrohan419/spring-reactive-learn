@@ -15,6 +15,11 @@ public class FluxMonoGeneratorService {
 		return Mono.just("rohan").log();
 	}
 	
+	
+	public Flux<String> namesFluxMap() {
+		return Flux.fromIterable(List.of("abc", "bcd", "def", "ghi", "jkl")).map(String::toUpperCase).log();
+	}
+	
 	public static void main(String[] args) {
 		FluxMonoGeneratorService fluxMonoGeneratorService = new FluxMonoGeneratorService();
 		fluxMonoGeneratorService.namesFlux().subscribe(name -> {
