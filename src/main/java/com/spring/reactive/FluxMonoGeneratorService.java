@@ -20,6 +20,12 @@ public class FluxMonoGeneratorService {
 		return Flux.fromIterable(List.of("abc", "bcd", "def", "ghi", "jkl")).map(String::toUpperCase).log();
 	}
 	
+	public Flux<String> nameFluxImmutable() {
+		var nameFlux = Flux.fromIterable(List.of("abc", "bcd")).map(String::toUpperCase).log();
+		nameFlux = nameFlux.map(String::toUpperCase);
+		return nameFlux;
+	}
+	
 	public static void main(String[] args) {
 		FluxMonoGeneratorService fluxMonoGeneratorService = new FluxMonoGeneratorService();
 		fluxMonoGeneratorService.namesFlux().subscribe(name -> {

@@ -25,5 +25,13 @@ class ReactiveApplicationTests {
 		StepVerifier.create(namesFlux).expectNextCount(5)
 		.verifyComplete();
 	}
+	
+	@Test
+	void contextLoadsImmutable() {
+		var namesFlux = fluxMonoGeneratorService.nameFluxImmutable();
+		
+		StepVerifier.create(namesFlux).expectNext("ABC", "DEF")
+		.verifyComplete();
+	}
 
 }
