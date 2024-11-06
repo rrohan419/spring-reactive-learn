@@ -27,10 +27,26 @@ class ReactiveApplicationTests {
 	}
 	
 	@Test
-	void contextLoadsImmutable() {
+	void namesFluxMap() {
 		var namesFlux = fluxMonoGeneratorService.nameFluxImmutable();
 		
-		StepVerifier.create(namesFlux).expectNext("ABC", "DEF")
+		StepVerifier.create(namesFlux).expectNext("abc", "bcd")
+		.verifyComplete();
+	}
+	
+	@Test
+	void namesFluxMapFilter() {
+		var namesFlux = fluxMonoGeneratorService.namesFluxMapFilter(3);
+		
+		StepVerifier.create(namesFlux).expectNext("ABCD", "ABCD")
+		.verifyComplete();
+	}
+	
+	@Test
+	void namesFluxFlatMapFilter() {
+		var namesFlux = fluxMonoGeneratorService.namesFluxFlatMapFilter(3);
+		
+		StepVerifier.create(namesFlux).expectNext("A", "B", "C", "D","A", "B", "C", "D")
 		.verifyComplete();
 	}
 
