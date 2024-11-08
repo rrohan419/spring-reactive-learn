@@ -1,5 +1,7 @@
 package com.spring.reactive;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -46,6 +48,22 @@ class ReactiveApplicationTests {
 	void namesFluxFlatMapFilter() {
 		var namesFlux = fluxMonoGeneratorService.namesFluxFlatMapFilter(3);
 		
+		StepVerifier.create(namesFlux).expectNext("A", "B", "C", "D","A", "B", "C", "D")
+		.verifyComplete();
+	}
+	
+	@Test
+	void namesMonoFlatMapFilter() {
+		var namesFlux = fluxMonoGeneratorService.namesMonoFlatMapFilter(3);
+		// this example is for showing you that flat map is async in nature.
+		StepVerifier.create(namesFlux).expectNext(List.of("A", "L", "E", "X"))
+		.verifyComplete();
+	}
+	
+	@Test
+	void namesFluxFlatMapFilterDelay() {
+		var namesFlux = fluxMonoGeneratorService.namesFluxConcatMapFilterWithDelay(3);
+		// this example is for showing you that flat map is async in nature.
 		StepVerifier.create(namesFlux).expectNext("A", "B", "C", "D","A", "B", "C", "D")
 		.verifyComplete();
 	}
